@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ePub Editor</title>
+    <style>
+      /* .display-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      } */
+      input {
+        margin-left: 10px;
+      }
+      body {
+        margin: 0px;
+        font-family: sans-serif;
+      }
+
+      /* ::-webkit-file-upload-button {
+        background: #EAECC6;
+        color: black;
+        padding: 1em;
+        font-size: 15px;
+      } */
+
+      input[type="file"] {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.droptext {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #EAECC6;
+  border: 3px dotted #bebebe;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  margin-left: 80px
+}
+
+label {
+  display: inline-block;
+  position: relative;
+  height: 100px;
+  width: 400px;
+  margin-bottom: 40px;
+}
+
+div.dragover {
+  background-color: #aaa;
+}
+
+input[type=submit]{
+  background-color: #98FB98;
+  border-style: outset;
+  border-radius: 10px;
+  border-color: green;
+  color: black;
+  font-size: 15px;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  margin-left: 80px
+}
+
+      .wrap {
+        width: 100%;
+        overflow: auto;
+        background: #2BC0E4;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      }
+
+      .fleft {
+        float: left;
+        width: 60%;
+        /* background: pink; */
+        height: 821px;
+      }
+
+      .fright {
+        float: right;
+        /* background: #EAECC6; */
+        height: 821px;
+        width: 40%;
+      }
+    </style>
+</head>
+<body>
+<div class='wrap'>
+
+  <div class="fleft">
+    <h1 align="left" style="font-size: 60px; padding-top: 30px; font-weight: 600; padding-left: 80px">Set ePub cover image</h1>
+    <h2 align="left" style="font-size: 30px; padding-top: 10px; font-weight: 100; padding-left: 80px; padding-bottom: 60px;">
+      Upload cover image and epub</h2>
+
+    <h3 align="left" style="font-size: 17px; font-weight: 70; padding-left: 80px; padding-bottom: 0px;">Drag and drop the file or click and select file</h3>
+
+
+    <form method='POST' action='/create' enctype='multipart/form-data' class='display-flex'>
+
+      <label for="cover_image">
+        <div class='droptext'>
+          <p>Cover Image (jpg only)</p>
+          <p id="imgname" style="padding-left:10px; word-wrap: normal;"></p>
+        </div>
+        <input type='file' name='cover_image' id='cover_image' accept=".jpg">
+      </label>
+
+      <br />
+
+      <label for="original">
+        <div class='droptext'>
+          <p>ePub file</p>
+          <p id="epubname" style="padding-left:10px; word-wrap: normal;"></p>
+        </div>
+        <input type='file' name='original' id='original' accept=".epub">
+      </label>
+
+      <br />
+      <br />
+
+      <input type='submit'>
+    </form>
+  </div>
+
+  <div class="fright">
+    <img src="{{url_for('static', filename='tryy.png')}}">
+  </div>
+
+</div>
+
+<script>
+  // alert("Hello!")
+  var imgInput = document.querySelector('input[id=cover_image]');
+  var epubInput = document.querySelector('input[id=original]');
+  var imgnameContainer = document.querySelector('#imgname');
+  var epubnameContainer = document.querySelector('#epubname');
+  var dropzone = document.querySelector('.droptext');
+
+  imgInput.addEventListener('change', function() {
+	  imgnameContainer.innerText = "- "+imgInput.value.split('\\').pop();
+  });
+
+  epubInput.addEventListener('change', function() {
+	  epubnameContainer.innerText = "- "+epubInput.value.split('\\').pop();
+  });
+
+  fileInput.addEventListener('dragenter', function() {
+	  dropzone.classList.add('dragover');
+  });
+
+  fileInput.addEventListener('dragleave', function() {
+	  dropzone.classList.remove('dragover');
+  });
+
+</script>
+
+</body>
+</html>
